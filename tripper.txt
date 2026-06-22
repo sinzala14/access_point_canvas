@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lean Canvas — Launch Your Startup</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&family=Courier+Prime:wght@400;700&display=swap');
+
+  /* ── Token System ──────────────────────────────── */
+  :root {
+    --beige-0: #FAF7F2;   /* page background */
+    --beige-1: #F2EDE3;   /* card fill */
+    --beige-2: #E4DAC8;   /* divider / subtle accent */
+    --beige-3: #C9BAA0;   /* muted label */
+    --red-0:   #C0392B;   /* primary accent */
+    --red-1:   #E74C3C;   /* hover */
+    --red-2:   #F5B7B1;   /* light tint for tags */
+    --white:   #FFFFFF;
+    --ink:     #1A1208;
+    --ink-soft:#4A3F30;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--beige-0);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ──────────────────────────────────────── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--white);
+    border-bottom: 2px solid var(--red-0);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem;
+    height: 56px;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 900;
+    letter-spacing: .02em;
+    color: var(--red-0);
+  }
+  .nav-links {
+    display: flex; gap: 1.4rem;
+    list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    font-size: .8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--ink-soft);
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--red-0); }
+
+  /* ── HERO ─────────────────────────────────────── */
+  .hero {
+    background: var(--red-0);
+    color: var(--white);
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(255,255,255,.03) 40px,
+      rgba(255,255,255,.03) 80px
+    );
+  }
+  .hero-eyebrow {
+    font-family: 'Courier Prime', monospace;
+    font-size: .75rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--red-2);
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    max-width: 800px;
+    margin: 0 auto 1.5rem;
+  }
+  .hero h1 span { color: var(--red-2); }
+  .hero p {
+    font-size: 1.05rem;
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+    opacity: .88;
+    font-weight: 300;
+  }
+  .hero-cta {
+    display: inline-block;
+    background: var(--white);
+    color: var(--red-0);
+    font-weight: 700;
+    font-size: .85rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: .85rem 2.2rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background .2s, color .2s;
+  }
+  .hero-cta:hover { background: var(--beige-2); }
+
+  /* ── WHAT IS IT ───────────────────────────────── */
+  .what {
+    max-width: 780px;
+    margin: 5rem auto;
+    padding: 0 2rem;
+  }
+  .section-eyebrow {
+    font-family: 'Courier Prime', monospace;
+    font-size: .72rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--red-0);
+    margin-bottom: .6rem;
+  }
+  .what h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.2rem;
+  }
+  .what p { color: var(--ink-soft); margin-bottom: 1rem; }
+  .quote-block {
+    border-left: 3px solid var(--red-0);
+    background: var(--beige-1);
+    padding: 1.2rem 1.6rem;
+    margin: 2rem 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  /* ── CANVAS VISUAL ────────────────────────────── */
+  .canvas-section {
+    background: var(--beige-1);
+    padding: 5rem 2rem;
+  }
+  .canvas-section > .inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .canvas-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: .4rem;
+  }
+  .canvas-section .subtitle {
+    color: var(--ink-soft);
+    margin-bottom: 2.5rem;
+    font-size: .9rem;
+  }
+
+  /* The canvas grid — signature element */
+  .canvas-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 6px;
+  }
+  .canvas-cell {
+    background: var(--white);
+    border: 1.5px solid var(--beige-2);
+    padding: 1.1rem 1rem;
+    cursor: pointer;
+    transition: transform .15s, box-shadow .15s, border-color .15s;
+    position: relative;
+    min-height: 120px;
+  }
+  .canvas-cell:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(192,57,43,.12);
+    border-color: var(--red-0);
+    z-index: 2;
+  }
+  .canvas-cell.active {
+    border-color: var(--red-0);
+    background: var(--red-0);
+    color: var(--white);
+  }
+  .canvas-cell.active .cell-number { color: var(--red-2); }
+  .canvas-cell.active .cell-name { color: var(--white); }
+  .canvas-cell.active .cell-teaser { color: rgba(255,255,255,.75); }
+
+  .cell-number {
+    font-family: 'Courier Prime', monospace;
+    font-size: .68rem;
+    color: var(--red-0);
+    letter-spacing: .1em;
+    margin-bottom: .3rem;
+  }
+  .cell-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: .9rem;
+    line-height: 1.2;
+    margin-bottom: .4rem;
+    color: var(--ink);
+  }
+  .cell-teaser {
+    font-size: .75rem;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+
+  /* Span rules */
+  .span-2-rows { grid-row: span 2; }
+  .span-2-cols { grid-column: span 2; }
+  .bottom-row-full { grid-column: 1 / -1; }
+
+  /* ── DETAIL PANEL ─────────────────────────────── */
+  .detail-panel {
+    background: var(--white);
+    border: 2px solid var(--beige-2);
+    border-top: 4px solid var(--red-0);
+    max-width: 1100px;
+    margin: 1.5rem auto 0;
+    padding: 2.5rem;
+    display: none;
+    animation: slideIn .25s ease;
+  }
+  @keyframes slideIn {
+    from { opacity:0; transform: translateY(-8px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+  .detail-panel.visible { display: block; }
+  .detail-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+  }
+  .detail-header h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+  .detail-header .tag {
+    background: var(--red-2);
+    color: var(--red-0);
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .3rem .7rem;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .detail-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .detail-col h4 {
+    font-family: 'Courier Prime', monospace;
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--red-0);
+    margin-bottom: .6rem;
+  }
+  .detail-col p, .detail-col li {
+    color: var(--ink-soft);
+    font-size: .88rem;
+    line-height: 1.65;
+    margin-bottom: .4rem;
+  }
+  .detail-col ul { padding-left: 1.1rem; }
+  .detail-close {
+    position: absolute; top: 1rem; right: 1.2rem;
+    background: none; border: none;
+    font-size: 1.2rem; cursor: pointer;
+    color: var(--ink-soft);
+  }
+  .detail-close:hover { color: var(--red-0); }
+
+  /* ── PHASES / CHECKLIST ───────────────────────── */
+  .phases {
+    max-width: 900px;
+    margin: 5rem auto;
+    padding: 0 2rem;
+  }
+  .phases h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: .3rem;
+  }
+  .phases .subtitle {
+    color: var(--ink-soft);
+    font-size: .9rem;
+    margin-bottom: 3rem;
+  }
+  .phase-block {
+    display: flex; gap: 1.5rem;
+    margin-bottom: 2.8rem;
+    align-items: flex-start;
+  }
+  .phase-num {
+    flex-shrink: 0;
+    width: 48px; height: 48px;
+    background: var(--red-0);
+    color: var(--white);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 2px;
+  }
+  .phase-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: .4rem;
+  }
+  .phase-content p { color: var(--ink-soft); font-size: .88rem; margin-bottom: .6rem; }
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex; gap: .6rem; align-items: flex-start;
+    font-size: .85rem; color: var(--ink-soft);
+    margin-bottom: .3rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .checklist li::before {
+    content: '☐';
+    flex-shrink: 0;
+    color: var(--red-0);
+    font-size: 1rem;
+  }
+  .checklist li.done { text-decoration: line-through; opacity: .55; }
+  .checklist li.done::before { content: '☑'; }
+
+  /* ── VALIDATION Q&A ───────────────────────────── */
+  .qa-section {
+    background: var(--red-0);
+    color: var(--white);
+    padding: 5rem 2rem;
+  }
+  .qa-section > .inner { max-width: 860px; margin: 0 auto; }
+  .qa-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: .4rem;
+  }
+  .qa-section .subtitle {
+    color: var(--red-2);
+    font-size: .88rem;
+    margin-bottom: 2.5rem;
+  }
+  .qa-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+  .qa-card {
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.18);
+    padding: 1.3rem 1.4rem;
+    border-radius: 2px;
+  }
+  .qa-card .qnum {
+    font-family: 'Courier Prime', monospace;
+    font-size: .68rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--red-2);
+    margin-bottom: .4rem;
+  }
+  .qa-card p { font-size: .88rem; line-height: 1.6; opacity: .9; }
+
+  /* ── FOOTER ───────────────────────────────────── */
+  footer {
+    background: var(--ink);
+    color: var(--beige-3);
+    text-align: center;
+    padding: 2.5rem 2rem;
+    font-size: .78rem;
+    letter-spacing: .06em;
+  }
+  footer strong { color: var(--white); }
+
+  @media (max-width: 768px) {
+    .canvas-grid { grid-template-columns: 1fr 1fr; }
+    .detail-body { grid-template-columns: 1fr; }
+    .qa-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .span-2-rows { grid-row: span 1; }
+    .span-2-cols { grid-column: span 1; }
+    .bottom-row-full { grid-column: span 2; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Access Point / Lean Canvas</div>
+  <ul class="nav-links">
+    <li><a href="#canvas">The Canvas</a></li>
+    <li><a href="#phases">Launch Phases</a></li>
+    <li><a href="#validate">Validate</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Student Startup Guide &nbsp;·&nbsp; Lean Canvas Framework</p>
+  <h1>Turn Your Idea Into a<br><span>Real Business</span></h1>
+  <p>The Lean Canvas replaces a 40-page business plan with one page of honest questions. Work through every block, and you'll know whether your startup is worth building — before you write a single line of code.</p>
+  <a href="#canvas" class="hero-cta">Start the Canvas →</a>
+</section>
+
+<!-- WHAT IS IT -->
+<section class="what">
+  <p class="section-eyebrow">The framework</p>
+  <h2>What is the Lean Canvas?</h2>
+  <p>Adapted by <strong>Ash Maurya</strong> from Alexander Osterwalder's Business Model Canvas, the Lean Canvas is a one-page strategic blueprint purpose-built for founders who move fast and learn faster. It forces you to articulate your problem, solution, and market in language sharp enough to be stress-tested by reality.</p>
+  <p>Unlike a traditional business plan — which locks you into an assumption-heavy document for months — the Lean Canvas is designed to be <strong>wrong quickly</strong>, revised cheaply, and validated continuously.</p>
+  <div class="quote-block">
+    "A problem well stated is a problem half solved. The Lean Canvas makes sure you actually state it."
+  </div>
+  <p>Below you'll find an interactive version of all 12 building blocks. Click any block to open a detailed guide with definitions, key questions, and student-friendly action steps.</p>
+</section>
+
+<!-- CANVAS VISUAL -->
+<section class="canvas-section" id="canvas">
+  <div class="inner">
+    <p class="section-eyebrow">Interactive canvas</p>
+    <h2>The 12 Building Blocks</h2>
+    <p class="subtitle">Click any block to explore it in depth — work left to right, top to bottom.</p>
+
+    <div class="canvas-grid">
+      <!-- Row 1 -->
+      <div class="canvas-cell span-2-rows" data-id="1">
+        <div class="cell-number">01</div>
+        <div class="cell-name">Problem</div>
+        <div class="cell-teaser">The top 1–3 pains your customer actually has.</div>
+      </div>
+      <div class="canvas-cell" data-id="3">
+        <div class="cell-number">03</div>
+        <div class="cell-name">Solution</div>
+        <div class="cell-teaser">Simplest fix for each problem.</div>
+      </div>
+      <div class="canvas-cell" data-id="4">
+        <div class="cell-number">04</div>
+        <div class="cell-name">Unique Value Proposition</div>
+        <div class="cell-teaser">Why choose you over everything else?</div>
+      </div>
+      <div class="canvas-cell span-2-rows" data-id="7">
+        <div class="cell-number">07</div>
+        <div class="cell-name">Customer Segments</div>
+        <div class="cell-teaser">Exactly who will pay for this.</div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="canvas-cell" data-id="2">
+        <div class="cell-number">02</div>
+        <div class="cell-name">Existing Alternatives</div>
+        <div class="cell-teaser">How they cope today.</div>
+      </div>
+      <div class="canvas-cell" data-id="9">
+        <div class="cell-number">09</div>
+        <div class="cell-name">Channels</div>
+        <div class="cell-teaser">How you reach your customers.</div>
+      </div>
+      <div class="canvas-cell" data-id="5">
+        <div class="cell-number">05</div>
+        <div class="cell-name">High-Level Concept</div>
+        <div class="cell-teaser">"X for Y" — the one-liner.</div>
+      </div>
+      <div class="canvas-cell" data-id="8">
+        <div class="cell-number">08</div>
+        <div class="cell-name">Early Adopters</div>
+        <div class="cell-teaser">Your first 10–100 users.</div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="canvas-cell span-2-cols" data-id="11">
+        <div class="cell-number">11</div>
+        <div class="cell-name">Cost Structure</div>
+        <div class="cell-teaser">Fixed + variable costs to launch.</div>
+      </div>
+      <div class="canvas-cell" data-id="6">
+        <div class="cell-number">06</div>
+        <div class="cell-name">Unfair Advantage</div>
+        <div class="cell-teaser">What rivals cannot copy.</div>
+      </div>
+      <div class="canvas-cell" data-id="10">
+        <div class="cell-number">10</div>
+        <div class="cell-name">Key Metrics</div>
+        <div class="cell-teaser">The numbers that tell the truth.</div>
+      </div>
+      <div class="canvas-cell span-2-cols" data-id="12">
+        <div class="cell-number">12</div>
+        <div class="cell-name">Revenue Streams</div>
+        <div class="cell-teaser">How and what you charge.</div>
+      </div>
+    </div>
+
+    <!-- Detail Panel -->
+    <div class="detail-panel" id="detail-panel">
+      <button class="detail-close" onclick="closeDetail()">✕</button>
+      <div class="detail-header">
+        <h3 id="detail-title"></h3>
+        <span class="tag" id="detail-tag"></span>
+      </div>
+      <div class="detail-body">
+        <div class="detail-col" id="detail-left"></div>
+        <div class="detail-col" id="detail-right"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LAUNCH PHASES -->
+<section class="phases" id="phases">
+  <p class="section-eyebrow">Your roadmap</p>
+  <h2>5 Phases to Launch</h2>
+  <p class="subtitle">Check off each task as you go. Your canvas drives each decision.</p>
+
+  <div class="phase-block">
+    <div class="phase-num">1</div>
+    <div class="phase-content">
+      <h3>Discover — Fill Your Canvas</h3>
+      <p>Before writing code or renting office space, articulate every block of the Lean Canvas. Leave nothing blank. Blank = assumption = risk.</p>
+      <ul class="checklist">
+        <li onclick="toggle(this)">Write down the top 3 problems your target customer faces</li>
+        <li onclick="toggle(this)">Research how customers are solving those problems today</li>
+        <li onclick="toggle(this)">Draft one sentence: your Unique Value Proposition</li>
+        <li onclick="toggle(this)">Name your 3 customer segments in specific terms</li>
+        <li onclick="toggle(this)">Identify your Unfair Advantage honestly</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="phase-block">
+    <div class="phase-num">2</div>
+    <div class="phase-content">
+      <h3>Validate — Talk to Real People</h3>
+      <p>Conduct at least 10 customer interviews before building anything. Your canvas is a set of guesses — interviews turn them into facts.</p>
+      <ul class="checklist">
+        <li onclick="toggle(this)">Recruit 10 people from your target customer segment</li>
+        <li onclick="toggle(this)">Run structured problem-interview sessions (no pitching)</li>
+        <li onclick="toggle(this)">Document verbatim quotes that confirm or refute each problem</li>
+        <li onclick="toggle(this)">Identify your 5 most excited early adopters</li>
+        <li onclick="toggle(this)">Update your canvas based on what you learned</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="phase-block">
+    <div class="phase-num">3</div>
+    <div class="phase-content">
+      <h3>Build — Minimum Viable Product</h3>
+      <p>Build only the features that directly solve the #1 problem for your early adopters. Every feature not on your Solution block is scope creep.</p>
+      <ul class="checklist">
+        <li onclick="toggle(this)">Define your MVP scope in one paragraph</li>
+        <li onclick="toggle(this)">Set a hard build deadline (no longer than 8 weeks)</li>
+        <li onclick="toggle(this)">Choose your tech stack based on speed, not prestige</li>
+        <li onclick="toggle(this)">Ship a working product to at least 5 early adopters</li>
+        <li onclick="toggle(this)">Log every bug, complaint, and compliment</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="phase-block">
+    <div class="phase-num">4</div>
+    <div class="phase-content">
+      <h3>Measure — Track What Matters</h3>
+      <p>Instrument your Key Metrics block. Vanity metrics (page views, Twitter followers) are distractions. Track what proves value delivery.</p>
+      <ul class="checklist">
+        <li onclick="toggle(this)">Set up analytics on your product (Mixpanel, PostHog, or Amplitude)</li>
+        <li onclick="toggle(this)">Define one North Star Metric for this stage</li>
+        <li onclick="toggle(this)">Build a weekly dashboard you actually look at</li>
+        <li onclick="toggle(this)">Set a retention target for week-1 and week-4</li>
+        <li onclick="toggle(this)">Run weekly reviews comparing metrics to your canvas assumptions</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="phase-block">
+    <div class="phase-num">5</div>
+    <div class="phase-content">
+      <h3>Iterate — Pivot or Persist</h3>
+      <p>Every metric tells a story. If your metrics are flat, return to the canvas. Something in your problem, segment, or channel is wrong — find it.</p>
+      <ul class="checklist">
+        <li onclick="toggle(this)">Hold a monthly canvas review with your team</li>
+        <li onclick="toggle(this)">Document what you've invalidated and why</li>
+        <li onclick="toggle(this)">Decide: pivot one block, or stay the course?</li>
+        <li onclick="toggle(this)">Run another round of customer interviews</li>
+        <li onclick="toggle(this)">Update your canvas — version-control it like code</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- VALIDATION Q&A -->
+<section class="qa-section" id="validate">
+  <div class="inner">
+    <p class="section-eyebrow" style="color: var(--red-2);">12 questions that cut through the noise</p>
+    <h2>Validate Your Canvas</h2>
+    <p class="subtitle">Answer each question honestly. Vague answers mean weak assumptions.</p>
+    <div class="qa-grid">
+      <div class="qa-card"><div class="qnum">Problem</div><p>Can you describe the pain in the customer's own words, not yours?</p></div>
+      <div class="qa-card"><div class="qnum">Alternatives</div><p>Have you actually used the competitor or workaround your customer relies on?</p></div>
+      <div class="qa-card"><div class="qnum">Solution</div><p>Does your solution map 1-to-1 with every problem you listed?</p></div>
+      <div class="qa-card"><div class="qnum">UVP</div><p>If your UVP has the word "better," rewrite it. What specifically is better and by how much?</p></div>
+      <div class="qa-card"><div class="qnum">Concept</div><p>Can a stranger repeat your high-level concept back to you after hearing it once?</p></div>
+      <div class="qa-card"><div class="qnum">Unfair Advantage</div><p>Could a well-funded team replicate your advantage in six months? If yes, it's not an unfair advantage.</p></div>
+      <div class="qa-card"><div class="qnum">Segments</div><p>Have you named a person, not a category? "Freelance designers aged 25–35 in tier-2 cities" beats "creatives."</p></div>
+      <div class="qa-card"><div class="qnum">Early Adopters</div><p>Do you have a name and phone number for your first 10 users?</p></div>
+      <div class="qa-card"><div class="qnum">Channels</div><p>Have you tested each channel with real spend or effort — not just planned it?</p></div>
+      <div class="qa-card"><div class="qnum">Key Metrics</div><p>If your North Star Metric doubles, does revenue double? If not, pick a different metric.</p></div>
+      <div class="qa-card"><div class="qnum">Cost Structure</div><p>Do you know your monthly burn rate to the nearest $100?</p></div>
+      <div class="qa-card"><div class="qnum">Revenue</div><p>Has at least one person given you money — or committed to giving you money — for this product?</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Built for student founders · Based on <strong>Ash Maurya's Lean Canvas</strong> · Access Point Framework
+</footer>
+
+<script>
+const data = {
+  1: {
+    title: "Problem",
+    tag: "Foundation Block",
+    left: {
+      heading: "What it means",
+      body: `<p>List the top 1–3 critical problems experienced by your target customer. Every other block in the canvas depends on getting this right. If you can't name a real, painful problem, there is no viable business — only a product in search of a market.</p>
+             <p>Problems come in three forms: <strong>Active</strong> (customers are frustrated right now), <strong>Passive</strong> (they're annoyed but tolerating it), and <strong>Latent</strong> (they don't know they have it yet).</p>`
+    },
+    right: {
+      heading: "Student action steps",
+      body: `<ul>
+               <li>Write your problem as a story, not a statement. "Students spend 3 hours finding lab space because booking is fragmented across 12 portals." That's a problem.</li>
+               <li>Rank your problems by severity — start solving the most painful one.</li>
+               <li>Interview 10 people before you finalize this block. Never fill it from your bedroom.</li>
+             </ul>`
+    }
+  },
+  2: {
+    title: "Existing Alternatives",
+    tag: "Competitive Context",
+    left: {
+      heading: "What it means",
+      body: `<p>Your competition isn't just other startups. It includes spreadsheets, WhatsApp groups, manual workarounds, hiring an intern, and simply doing nothing. Document what your customer is actually using today to cope with each problem.</p>`
+    },
+    right: {
+      heading: "Student action steps",
+      body: `<ul>
+               <li>Sign up for every alternative. Use it for a week. Write down the friction.</li>
+               <li>Ask customers "what do you use today?" — not "what would you use?"</li>
+               <li>The gap between what they use and what they hate about it is your opening.</li>
+             </ul>`
+    }
+  },
+  3: {
+    title: "Solution",
+    tag: "MVP Blueprint",
+    left: {
+      heading: "What it means",
+      body: `<p>Outline the simplest possible solution for each problem. Avoid feature bloat. The goal is to define your Minimum Viable Product — the smallest version of the product that still solves the core pain. You cannot sell potential; you can only sell delivered value.</p>`
+    },
+    right: {
+      heading: "Student action steps",
+      body: `<ul>
+               <li>Write one solution sentence per problem. No bullet nesting, no "and also."</li>
+               <li>Cut every feature that a customer didn't ask for in an interview.</li>
+               <li>Build a mock-up or prototype before writing a line of backend code.</li>
+               <li>Ask early adopters: "Would this solve problem #1 for you?" Not "do you like it?"</li>
+             </ul>`
+    }
+  },
+  4: {
+    title: "Unique Value Proposition",
+    tag: "Your Promise",
+    left: {
+      heading: "What it means",
+      body: `<p>A single, clear, compelling message that states why your solution is different and worth paying for. It must immediately capture attention. The UVP is not a tagline; it's a direct statement of value that speaks to the customer's specific pain and outcome.</p>`
+    },
+    right: {
+      heading: "Student action steps",
+      body: `<ul>
+               <li>Use this formula: <strong>[Customer] get [outcome] by [method] without [pain].</strong></li>
+               <li>Test your UVP on 5 strangers. If they need an explanation, rewrite it.</li>
+               <li>Remove adjectives like "powerful," "seamless," "easy." Replace with numbers.</li>
+               <li>Your UVP should make your best competitor wince when they read it.</li>
+             </ul>`
+    }
+  },
+  5: {
+    title: "High-Level Concept",
+    tag: "The One-Liner",
+    left: {
+      heading: "What it means",
+      body: `<p>Create an "X for Y" analogy that lets any stakeholder instantly understand your business model. This isn't dumbing it down — it's anchoring your innovation to something already understood. "Airbnb for university lab equipment" communicates marketplace + rental + sharing instantly.</p>`
+    },
+    right: {
+      heading: "Student action steps",
+      body: `<ul>
+               <li>The format is: "[Familiar company] for [your niche]" or "[Known action] for [your customer]."</li>
+               <li>Keep it one sentence. If you need two, you don't have it yet.</li>
+               <li>Use this in your email footer, your pitch deck title slide, and your intro at events.</li>
+             </ul>`
+    }
+  },
+  6: {
+    title: "Unfair Advantage",
+    tag: "Defensibility",
+    left: {
+      heading: "What it means",
+      body: `<p>Something intrinsic to your business that cannot be easily replicated, bought, or reverse-engineered by competitors. Common sources: proprietary data, deep domain expertise, exclusive partnerships, network effects, personal reputation, and regulatory access. Most first-draft canvases leave this blank — that's dangerous.</p>`
+    },
+    right: {
+      heading: "Student action steps",
+      body: `<ul>
+               <li>Ask: "If a well-funded team built this tomorrow, what would they lack?" That's your answer.</li>
+               <li>Network effects, community, and proprietary datasets are the strongest moats.</li>
+               <li>Being first is NOT an unfair advantage. Being most trusted often is.</li>
+               <li>If you can't fill this block yet, focus on building something that earns it.</li>
+             </ul>`
+    }
+  },
+  7: {
+    title: "Customer Segments",
+    tag: "Your Market",
+    left: {
+      heading: "What it means",
+      body: `<p>The specific people or organizations who experience the problem and have both the motivation and budget to pay for your solution. Avoid broad segments like "small businesses" or "students." The more specific, the more actionable your strategy becomes.</p>`
+    },
+    right: {
+      heading: "Student action steps",
+      body: `<ul>
+               <li>Name your segment as a person: "Biotech PhD researchers managing lab scheduling at R1 universities."</li>
+               <li>Identify who controls the budget (economic buyer) vs. who uses the product (end user) — they're often different.</li>
+               <li>Start with one segment. Expand only after proving traction there.</li>
+             </ul>`
+    }
+  },
+  8: {
+    title: "Early Adopters",
+    tag: "Your First 100",
+    left: {
+      heading: "What it means",
+      body: `<p>A subset of your customer segment who feel the problem most acutely, are actively looking for a solution, and are willing to use an imperfect product today. Early adopters are not your average customer — they are your research partners, your beta testers, and your first evangelists.</p>`
+    },
+    right: {
+      heading: "Student action steps",
+      body: `<ul>
+               <li>Early adopters have 3 traits: they feel the pain sharply, they've tried other solutions, and they'll give you blunt feedback.</li>
+               <li>Find them in communities where your customer segment congregates: Reddit, Slack groups, LinkedIn, Discord servers.</li>
+               <li>Get 5 of them using your product before you write your first marketing campaign.</li>
+             </ul>`
+    }
+  },
+  9: {
+    title: "Channels",
+    tag: "Go-to-Market",
+    left: {
+      heading: "What it means",
+      body: `<p>The paths through which you reach your customers. Channels split into <strong>inbound</strong> (content marketing, SEO, word of mouth, organic referrals) and <strong>outbound</strong> (direct sales, cold email, paid ads, events). Inbound is cheaper but slower. Outbound is faster but costlier.</p>`
+    },
+    right: {
+      heading: "Student action steps",
+      body: `<ul>
+               <li>Pick 1–2 channels to test first. Spreading thin across 6 channels is how you waste your runway.</li>
+               <li>Measure cost-per-acquisition (CPA) for each channel from day one.</li>
+               <li>Your channel must match where your customer already spends attention.</li>
+               <li>If you don't know which channel works yet, that's your first experiment.</li>
+             </ul>`
+    }
+  },
+  10: {
+    title: "Key Metrics",
+    tag: "Measure What Matters",
+    left: {
+      heading: "What it means",
+      body: `<p>The vital numbers that tell you exactly how your business is performing. Focus on <strong>actionable metrics</strong> — numbers that change based on your actions and reveal value delivery. Avoid vanity metrics (total signups, social followers) that feel good but don't predict survival.</p>
+             <p>The AARRR framework is a strong starting point: Acquisition, Activation, Retention, Referral, Revenue.</p>`
+    },
+    right: {
+      heading: "Student action steps",
+      body: `<ul>
+               <li>Pick one North Star Metric that captures the core value your product delivers (e.g., "lessons completed per week").</li>
+               <li>Track it weekly. If it's flat for 3 weeks, something in your canvas is wrong.</li>
+               <li>Instrument your product from day one — retro-fitting analytics is painful.</li>
+             </ul>`
+    }
+  },
+  11: {
+    title: "Cost Structure",
+    tag: "Financial Honesty",
+    left: {
+      heading: "What it means",
+      body: `<p>A list of all costs required to build and operate your MVP. Fixed costs (server hosting, your software subscriptions, legal setup) and variable costs (cloud scaling, cost-per-acquisition, contractor fees per project). Knowing your burn rate is non-negotiable from day one.</p>`
+    },
+    right: {
+      heading: "Student action steps",
+      body: `<ul>
+               <li>Build a monthly cost spreadsheet before writing your first line of code.</li>
+               <li>Divide total costs by month to find your burn rate and runway (months you can operate without new revenue).</li>
+               <li>Use free tiers aggressively: Vercel, Supabase, Resend, Stripe — most have student or startup credits.</li>
+               <li>Aim to be <strong>default alive</strong>: revenue covers costs before you run out of runway.</li>
+             </ul>`
+    }
+  },
+  12: {
+    title: "Revenue Streams",
+    tag: "Getting Paid",
+    left: {
+      heading: "What it means",
+      body: `<p>How you will charge for the value you deliver. Revenue models include: subscriptions (SaaS), transactional fees (marketplace), direct sales (enterprise), freemium conversions, and usage-based pricing. Each model has different implications for cash flow, customer retention, and unit economics.</p>`
+    },
+    right: {
+      heading: "Student action steps",
+      body: `<ul>
+               <li>Start with the simplest model: one price, one billing cycle.</li>
+               <li>Charge earlier than feels comfortable. A free product teaches you nothing about willingness to pay.</li>
+               <li>Calculate your break-even: how many paying customers do you need to cover your cost structure?</li>
+               <li>Define your Lifetime Value (LTV) and Customer Acquisition Cost (CAC). LTV must exceed 3× CAC.</li>
+             </ul>`
+    }
+  }
+};
+
+function openDetail(id) {
+  const d = data[id];
+  if (!d) return;
+  document.querySelectorAll('.canvas-cell').forEach(c => c.classList.remove('active'));
+  document.querySelector(`.canvas-cell[data-id="${id}"]`).classList.add('active');
+  document.getElementById('detail-title').textContent = d.title;
+  document.getElementById('detail-tag').textContent = d.tag;
+  document.getElementById('detail-left').innerHTML = `<h4>${d.left.heading}</h4>${d.left.body}`;
+  document.getElementById('detail-right').innerHTML = `<h4>${d.right.heading}</h4>${d.right.body}`;
+  const panel = document.getElementById('detail-panel');
+  panel.classList.add('visible');
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function closeDetail() {
+  document.getElementById('detail-panel').classList.remove('visible');
+  document.querySelectorAll('.canvas-cell').forEach(c => c.classList.remove('active'));
+}
+
+function toggle(el) {
+  el.classList.toggle('done');
+}
+
+document.querySelectorAll('.canvas-cell').forEach(cell => {
+  cell.addEventListener('click', () => openDetail(cell.dataset.id));
+});
+</script>
+</body>
+</html>
